@@ -15,6 +15,7 @@ void charger_start(void)
 
   COOL_OFF;
   
+  
   while (1)
   {
     /* Reload IWDG counter */

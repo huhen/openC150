@@ -2,6 +2,7 @@ _images/
 Debug/
 Release/
 settings/
+*.dep
 
 # Prerequisites
 *.d
