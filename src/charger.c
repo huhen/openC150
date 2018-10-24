@@ -1,6 +1,6 @@
 #include "charger.h"
 #include "hardware.h"
-#include "lcd.h"
+//#include "lcd.h"
 
 extern uint8_t RST_BY_WDG;
 
