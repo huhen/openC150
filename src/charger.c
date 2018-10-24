@@ -6,7 +6,7 @@ extern uint8_t RST_BY_WDG;
 
 void delay40us()
 {
-  TIM4->CNTR=216;
+  TIM4->CNTR=215;
   while (TIM4->CNTR);
 }
 
