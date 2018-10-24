@@ -1,6 +1,6 @@
 #include "charger.h"
 #include "hardware.h"
-//#include "lcd.h"
+#include "lcd.h"
 
 extern uint8_t RST_BY_WDG;
 
@@ -14,7 +14,6 @@ void charger_start(void)
   lcd_putsf("/huhen/openC150");
 
   COOL_OFF;
-  
   
   while (1)
   {
