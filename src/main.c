@@ -8,6 +8,8 @@ static void CLK_Config(void);
 static void GPIO_Config(void);
 static void IWDG_Config(void);
 static void UART_Config(void);
+static void TIM2_Config(void);
+static void TIM4_Config(void);
 static uint32_t LSIMeasurment(void);
 
 /**
@@ -36,6 +38,12 @@ void main(void)
   /* IWDG Configuration */
   IWDG_Config();
   
+  /* TIM2 configuration */
+  //TIM2_Config();
+  
+  /* TIM4 configuration */
+  TIM4_Config();  
+  
   /* UART configuration */
   UART_Config();
   
@@ -45,6 +53,56 @@ void main(void)
   charger_start();
 
   for(;;);
+}
+
+/**
+  * @brief  Configure TIM4
+  * @param  None
+  * @retval None
+  */
+static void TIM4_Config(void)
+{
+  TIM4_DeInit();
+
+  TIM4_TimeBaseInit(TIM4_PRESCALER_16, 255);
+  TIM4_ClearFlag(TIM4_FLAG_UPDATE);
+  TIM4_Cmd(ENABLE);   
+}
+
+/**
+  * @brief  Configure Output Compare InActive Mode for TIM2 Channel1, Channel2
+  * @param  None
+  * @retval None
+  */
+static void TIM2_Config(void)
+{
+  /* Time base configuration */
+  TIM2_TimeBaseInit(TIM2_PRESCALER_16, 40);
+
+  /* Prescaler configuration */
+  TIM2_PrescalerConfig(TIM2_PRESCALER_16, TIM2_PSCRELOADMODE_IMMEDIATE);
+
+  /* Output Compare InActive Mode configuration: Channel1 */
+  TIM2_OC1Init(TIM2_OCMODE_INACTIVE, TIM2_OUTPUTSTATE_ENABLE, 40, TIM2_OCPOLARITY_HIGH); 
+  TIM2_OC1PreloadConfig(DISABLE);
+
+  /* Output Compare InActive Mode configuration: Channel2 */
+  TIM2_OC2Init(TIM2_OCMODE_INACTIVE, TIM2_OUTPUTSTATE_ENABLE, 10000, TIM2_OCPOLARITY_HIGH); 
+  TIM2_OC2PreloadConfig(DISABLE);
+
+  /* Output Compare InActive Mode configuration: Channel3 */
+  //TIM2_OC3Init(TIM2_OCMODE_INACTIVE, TIM2_OUTPUTSTATE_ENABLE, 65535, TIM2_OCPOLARITY_HIGH); 
+  //TIM2_OC3PreloadConfig(DISABLE);
+
+  TIM2_ARRPreloadConfig(ENABLE);
+  
+  /* TIM IT enable */
+  //TIM2_ITConfig(TIM2_IT_CC1, ENABLE);
+  TIM2_ITConfig(TIM2_IT_CC2, ENABLE);
+  //TIM2_ITConfig(TIM2_IT_CC3, ENABLE);
+  
+  /* TIM2 enable counter */
+  TIM2_Cmd(ENABLE);
 }
 
 /**
@@ -78,6 +136,9 @@ static void GPIO_Config(void)
   WriteLow(LCD_DB5_PORT, LCD_DB5_PIN);
   WriteLow(LCD_DB6_PORT, LCD_DB6_PIN);
   WriteLow(LCD_DB7_PORT, LCD_DB7_PIN);
+  WriteLow(PWM_CHARGE_DOWN_PORT, PWM_CHARGE_DOWN_PIN);
+  WriteHigh(PWM_CHARGE_UP_PORT, PWM_CHARGE_UP_PIN);
+  WriteLow(PWM_DISCHARGE_PORT, PWM_DISCHARGE_PIN);
   
   /* Init pins */
   GPIO_Init(LCD_RS_PORT, LCD_RS_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
@@ -101,6 +162,10 @@ static void GPIO_Config(void)
   GPIO_Init(BAL_CELL_4_PORT, BAL_CELL_4_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
   GPIO_Init(BAL_CELL_5_PORT, BAL_CELL_5_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
   GPIO_Init(BAL_CELL_6_PORT, BAL_CELL_6_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
+  
+  GPIO_Init(PWM_CHARGE_DOWN_PORT, PWM_CHARGE_DOWN_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
+  GPIO_Init(PWM_CHARGE_UP_PORT, PWM_CHARGE_UP_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
+  GPIO_Init(PWM_DISCHARGE_PORT, PWM_DISCHARGE_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
   
   GPIO_Init(BT_START_PORT, BT_START_PIN, GPIO_MODE_IN_FL_NO_IT);
   GPIO_Init(BT_PLUS_PORT, BT_PLUS_PIN, GPIO_MODE_IN_FL_NO_IT);

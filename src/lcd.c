@@ -1,5 +1,6 @@
 #include "lcd.h"
 #include "hardware.h"
+#include "charger.h"
 
 /**
   * @brief  Delay
@@ -148,22 +149,22 @@ void lcd_clear(void)
   */
 void lcd_init(void)
 {
-  for(uint16_t t=0;t<200;t++)
+  for(uint16_t t=0;t<1000;t++)
   {
     IWDG->KR = IWDG_KEY_REFRESH;  
-    delay(260); //40ms
+    delay40us(); //40ms
   }
   
   lcd_com(0x28); //0b00101000 4-bit,2 - line mode, 5*8 dots
-  delay(56);
+  delay40us();
   
   lcd_com(0x0C); //0b00001100 display on,cursor off,blink off
-  delay(56);
+  delay40us();
 
   lcd_clear();
   
   lcd_com(0x06);//0b00000110 increment mode,entrir shift off
-  delay(56);
+  delay40us();
 }
 
 /**

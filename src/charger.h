@@ -5,6 +5,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
+void delay40us(void);
+
 void charger_start(void);
 
 #endif /* __CHARGER_H */
