@@ -12,6 +12,7 @@ static void TIM2_Config(void);
 static void TIM4_Config(void);
 static uint32_t LSIMeasurment(void);
 
+
 /**
   * @brief  Main program.
   * @param  None

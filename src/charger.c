@@ -14,6 +14,7 @@ void charger_start(void)
 {
   lcd_init();
 
+  
   lcd_gotoxy(0,0);
   lcd_putsf("OC150 github.com");
   lcd_gotoxy(0,1);
