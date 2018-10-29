@@ -1620,6 +1620,12 @@
             <name>$PROJ_DIR$\src\charger.h</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\src\errors.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\errors.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\src\hardware.h</name>
         </file>
         <file>
@@ -1630,6 +1636,42 @@
         </file>
         <file>
             <name>$PROJ_DIR$\src\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_ef.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_ef.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_li.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_li.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_lm.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_lm.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_ni.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_ni.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_pb.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_pb.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_us.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\prog_us.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\src\stm8s_conf.h</name>

@@ -3,37 +3,77 @@
 #include "charger.h"
 
 /**
-  * @brief  Delay
-  * @param  None
-  * @retval None
-  */
-static void delay(uint16_t a)
-{
-  while(a--)
-  {
-    nop();
-  }
-}
-
-/**
-  * @brief  None
-  * @param  None
-  * @retval None
-  */
+* @brief  None
+* @param  None
+* @retval None
+*/
 static inline void lcd_strob()
 {
-  delay(10);
+  delay_us(10);
   WriteHigh(LCD_E_PORT, LCD_E_PIN);
-  delay(10);
+  delay_us(10);
   WriteLow(LCD_E_PORT, LCD_E_PIN);
-  delay(10);
+  delay_us(10);
+}
+
+static void lcd_write_high(uint8_t d)
+{
+  delay_us(10);
+  
+  WriteLow(LCD_RS_PORT, LCD_RS_PIN);
+  
+  delay_us(10);
+  
+  if(d&0x80)
+  {
+    WriteHigh(LCD_DB7_PORT, LCD_DB7_PIN);
+  }
+  else
+  {
+    WriteLow(LCD_DB7_PORT, LCD_DB7_PIN);
+  }
+  
+  if(d&0x40)
+  {
+    WriteHigh(LCD_DB6_PORT, LCD_DB6_PIN);
+  }
+  else
+  {
+    WriteLow(LCD_DB6_PORT, LCD_DB6_PIN);
+  }
+  
+  if(d&0x20)
+  {
+    WriteHigh(LCD_DB5_PORT, LCD_DB5_PIN);
+  }
+  else
+  {
+    WriteLow(LCD_DB5_PORT, LCD_DB5_PIN);
+  }
+  
+  if(d&0x10)
+  {
+    WriteHigh(LCD_DB4_PORT, LCD_DB4_PIN);
+  }
+  else
+  {
+    WriteLow(LCD_DB4_PORT, LCD_DB4_PIN);
+  }
+  
+  lcd_strob();
+  
+  delay_us(10);
+  
+  WriteHigh(LCD_RS_PORT, LCD_RS_PIN);
+  
+  delay_us(10);
 }
 
 /**
-  * @brief  Write data to lcd
-  * @param  None
-  * @retval None
-  */
+* @brief  Write data to lcd
+* @param  None
+* @retval None
+*/
 void lcd_putchar(uint8_t d)
 {
   if(d&0x80)
@@ -73,7 +113,7 @@ void lcd_putchar(uint8_t d)
   }
   
   lcd_strob();
-   
+  
   if(d&0x08)
   {
     WriteHigh(LCD_DB7_PORT, LCD_DB7_PIN);
@@ -114,65 +154,82 @@ void lcd_putchar(uint8_t d)
 }
 
 /**
-  * @brief  Write comand to lcd
-  * @param  None
-  * @retval None
-  */
+* @brief  Write comand to lcd
+* @param  None
+* @retval None
+*/
 static void lcd_com(uint8_t d)
 {
+  delay_us(10);
+  
   WriteLow(LCD_RS_PORT, LCD_RS_PIN);
   
-  delay(10);
+  delay_us(10);
   
   lcd_putchar(d);
   
-  delay(10);
+  delay_us(10);
   
   WriteHigh(LCD_RS_PORT, LCD_RS_PIN);
+  
+  delay_us(10);
 }
 
 /**
-  * @brief  Clear lcd
-  * @param  None
-  * @retval None
-  */
+* @brief  Clear lcd
+* @param  None
+* @retval None
+*/
 void lcd_clear(void)
 {
   lcd_com(0x01);
-  delay(2600);//Очистка LCD
+  
+  delay_ms(2);
 }
 
 /**
-  * @brief  Init lcd
-  * @param  None
-  * @retval None
-  */
+* @brief  Init lcd
+* @param  None
+* @retval None
+*/
 void lcd_init(void)
 {
-  for(uint16_t t=0;t<1000;t++)
-  {
-    IWDG->KR = IWDG_KEY_REFRESH;  
-    delay40us(); //40ms
-  }
+  delay_ms(40);
+  
+  lcd_write_high(0x30);
+  delay_ms(10);
+  lcd_write_high(0x30);
+  delay_ms(1);
+  lcd_write_high(0x30);
+  delay_us(40);
+  lcd_write_high(0x20);
+  delay_us(40);
+  
   
   lcd_com(0x28); //0b00101000 4-bit,2 - line mode, 5*8 dots
-  delay40us();
+  delay_us(40);
   
-  lcd_com(0x0C); //0b00001100 display on,cursor off,blink off
-  delay40us();
-
+  lcd_com(0x08);
+  delay_us(40);
+  
+  lcd_com(0x17);
+  delay_us(40);
+  
   lcd_clear();
   
   lcd_com(0x06);//0b00000110 increment mode,entrir shift off
-  delay40us();
+  delay_us(40);
+  
+  lcd_com(0x0C); //0b00001100 display on,cursor off,blink off
+  delay_us(40);
 }
 
 /**
-  * @brief  Put string to lcd
-  * @param  None
-  * @retval None
-  */
-void lcd_putsf(char *_str)
+* @brief  Put string to lcd
+* @param  None
+* @retval None
+*/
+void lcd_putsf(const char *_str)
 {
   while (*_str)
   {
@@ -181,10 +238,10 @@ void lcd_putsf(char *_str)
 }
 
 /**
-  * @brief  Move to position
-  * @param  None
-  * @retval None
-  */
+* @brief  Move to position
+* @param  None
+* @retval None
+*/
 void lcd_gotoxy(char x, char y)
 {
   lcd_com((0x80+y*64)+x);

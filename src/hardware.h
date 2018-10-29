@@ -2,11 +2,17 @@
 #ifndef __HARDWARE_H
 #define __HARDWARE_H
 
+//#define FIX_BROKEN_PIN
+
 /* Exported macro ------------------------------------------------------------*/
 #define BT_START_PIN            (GPIO_PIN_7)
 #define BT_PLUS_PIN             (GPIO_PIN_6)
 #define BT_MINUS_PIN            (GPIO_PIN_5)
+#ifdef FIX_BROKEN_PIN
+#define BT_STOP_PIN             (GPIO_PIN_3)
+#else
 #define BT_STOP_PIN             (GPIO_PIN_4)
+#endif
 #define BT_START_PORT           (GPIOD)
 #define BT_PLUS_PORT            (GPIOD)
 #define BT_MINUS_PORT           (GPIOD)
@@ -122,5 +128,10 @@
 
 #define INPUT_DC_KEY_ON         WriteHigh(INPUT_DC_KEY_PORT, INPUT_DC_KEY_PIN)
 #define INPUT_DC_KEY_OFF        WriteLow(INPUT_DC_KEY_PORT, INPUT_DC_KEY_PIN)
+
+#define BT_START                (!(BT_START_PORT->IDR & (uint8_t)BT_START_PIN))
+#define BT_PLUS                 (!(BT_PLUS_PORT->IDR & (uint8_t)BT_PLUS_PIN))
+#define BT_MINUS                (!(BT_MINUS_PORT->IDR & (uint8_t)BT_MINUS_PIN))
+#define BT_STOP                 (!(BT_STOP_PORT->IDR & (uint8_t)BT_STOP_PIN))
 
 #endif /* __HARDWARE_H */
