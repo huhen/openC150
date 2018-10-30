@@ -2,7 +2,7 @@
 #ifndef __HARDWARE_H
 #define __HARDWARE_H
 
-//#define FIX_BROKEN_PIN
+#define FIX_BROKEN_PIN
 
 /* Exported macro ------------------------------------------------------------*/
 #define BT_START_PIN            (GPIO_PIN_7)
@@ -100,6 +100,22 @@
 #define ADC_TEMP_INT_PORT       (GPIOF)
 #define ADC_TEMP_EXT_PORT       (GPIOF)
 #define ADC_5V_PORT             (GPIOF)
+#define ADC_VCC_IN_CHAN          (0)
+#define ADC_IN1_CHAN             (1)
+#define ADC_VBAT_CHAN            (2)
+#define ADC_CELL_1_CHAN          (3)
+#define ADC_CELL_2_CHAN          (4)
+#define ADC_CELL_3_CHAN          (5)
+#define ADC_CELL_4_CHAN          (6)
+#define ADC_CELL_5_CHAN          (7)
+//#define ADC_IN8_CHAN             (8)
+//#define ADC_IN9_CHAN             (9)
+#define ADC_CELL_6_CHAN          (10)
+#define ADC_CURRENT_DISCHARGE_CHAN       (11)
+#define ADC_CURRENT_CHARGE_CHAN  (12)
+#define ADC_TEMP_INT_CHAN        (13)
+#define ADC_TEMP_EXT_CHAN        (14)
+#define ADC_5V_CHAN              (15)
 
 #define WriteHigh(Port, Pins)   Port->ODR |= (uint8_t)(Pins)
 #define WriteLow(Port, Pins)    Port->ODR &= (uint8_t)(~(Pins))
@@ -133,5 +149,29 @@
 #define BT_PLUS                 (!(BT_PLUS_PORT->IDR & (uint8_t)BT_PLUS_PIN))
 #define BT_MINUS                (!(BT_MINUS_PORT->IDR & (uint8_t)BT_MINUS_PIN))
 #define BT_STOP                 (!(BT_STOP_PORT->IDR & (uint8_t)BT_STOP_PIN))
+
+struct EPROM
+{
+  int16_t   VCC_CAL1; //587 - 11000mv
+  int16_t   VCC_CAL2; //907 - 17000mv
+  
+  int16_t   VBAT_CAL1; //28 - 800mv
+  int16_t   VBAT_CAL2; //928 - 25200mv
+  
+  int16_t   VCELL_1_CAL1; //162 - 800mv
+  int16_t   VCELL_1_CAL2; //859 - 4200mv
+  int16_t   VCELL_2_CAL1; //162 - 800mv
+  int16_t   VCELL_2_CAL2; //859 - 4200mv
+  int16_t   VCELL_3_CAL1; //162 - 800mv
+  int16_t   VCELL_3_CAL2; //859 - 4200mv
+  int16_t   VCELL_4_CAL1; //162 - 800mv
+  int16_t   VCELL_4_CAL2; //859 - 4200mv
+  int16_t   VCELL_5_CAL1; //162 - 800mv
+  int16_t   VCELL_5_CAL2; //859 - 4200mv
+  int16_t   VCELL_6_CAL1; //162 - 800mv
+  int16_t   VCELL_6_CAL2; //859 - 4200mv
+};
+
+extern struct EPROM *config;
 
 #endif /* __HARDWARE_H */

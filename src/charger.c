@@ -17,6 +17,17 @@ uint8_t event_bt_start = 0;
 uint8_t event_bt_minus = 0;
 uint8_t event_bt_plus = 0;
 
+uint16_t vcc_in = 0;
+uint16_t v_bat = 0;
+uint16_t v_cell_1 = 0;
+uint16_t v_cell_2 = 0;
+uint16_t v_cell_3 = 0;
+uint16_t v_cell_4 = 0;
+uint16_t v_cell_5 = 0;
+uint16_t v_cell_6 = 0;
+
+struct EPROM *config=(struct EPROM*)0x4000;
+
 extern uint8_t RST_BY_WDG;
 
 static uint8_t bt_stop = 0;
@@ -39,10 +50,6 @@ static uint8_t state = 0;
 #define PROG_US         (3)
 #define PROG_EF         (4)
 #define PROG_LM         (5)
-
-#define EVENT_SHORT     (1)
-#define EVENT_LONG      (2)
-
 
 void delay_us(uint8_t us)
 {
@@ -72,6 +79,7 @@ void delay_s(uint8_t s)
 
 void beep_on(uint16_t hz, uint16_t ms)
 {
+return;
   beep_start_ms = tick_ms;
   beep_time_ms = ms;
   uint16_t period = 1000000/hz;
@@ -174,6 +182,30 @@ static void scan_key()
   }
 }
 
+static void scan_adc()
+{
+  adc_complete = 0;
+
+  /*Start Conversion */
+  ADC2->CR1 |= ADC2_CR1_ADON;
+  
+  /*Wait stop Conversion */
+  while(!adc_complete)
+  {
+    wfi();
+  }
+
+  vcc_in = (((int32_t)AdcBuffer[ADC_VCC_IN_CHAN] - config->VCC_CAL1) * (17000 - 11000)) / (config->VCC_CAL2 - config->VCC_CAL1) + 11000;
+  
+  v_bat = (((int32_t)AdcBuffer[ADC_VBAT_CHAN] - config->VBAT_CAL1) * (25200 - 800)) / (config->VBAT_CAL2 - config->VBAT_CAL1) + 800;
+  v_cell_1 = (((int32_t)AdcBuffer[ADC_CELL_1_CHAN] - config->VCELL_1_CAL1) * (4200 - 800)) / (config->VCELL_1_CAL2 - config->VCELL_1_CAL1) + 800;
+  v_cell_2 = (((int32_t)AdcBuffer[ADC_CELL_2_CHAN] - config->VCELL_2_CAL1) * (4200 - 800)) / (config->VCELL_2_CAL2 - config->VCELL_2_CAL1) + 800;
+  v_cell_3 = (((int32_t)AdcBuffer[ADC_CELL_3_CHAN] - config->VCELL_3_CAL1) * (4200 - 800)) / (config->VCELL_3_CAL2 - config->VCELL_3_CAL1) + 800;
+  v_cell_4 = (((int32_t)AdcBuffer[ADC_CELL_4_CHAN] - config->VCELL_4_CAL1) * (4200 - 800)) / (config->VCELL_4_CAL2 - config->VCELL_4_CAL1) + 800;
+  v_cell_5 = (((int32_t)AdcBuffer[ADC_CELL_5_CHAN] - config->VCELL_5_CAL1) * (4200 - 800)) / (config->VCELL_5_CAL2 - config->VCELL_5_CAL1) + 800;
+  v_cell_6 = (((int32_t)AdcBuffer[ADC_CELL_6_CHAN] - config->VCELL_6_CAL1) * (4200 - 800)) / (config->VCELL_6_CAL2 - config->VCELL_6_CAL1) + 800;
+}
+
 void charger_start(void)
 {
   lcd_init();
@@ -192,6 +224,21 @@ void charger_start(void)
   
   delay_s(1);
   
+  //FLASH_Unlock(FLASH_MEMTYPE_DATA);
+  //config->VCELL_1_CAL1=162;
+  //config->VCELL_1_CAL2=859;
+  //config->VCELL_2_CAL1=162;
+  //config->VCELL_2_CAL2=859;
+  //config->VCELL_3_CAL1=162;
+  //config->VCELL_3_CAL2=859;
+  //config->VCELL_4_CAL1=162;
+  //config->VCELL_4_CAL2=859;
+  //config->VCELL_5_CAL1=162;
+  //config->VCELL_5_CAL2=859;
+  //config->VCELL_6_CAL1=162;
+  //config->VCELL_6_CAL2=859;
+  //FLASH_Lock(FLASH_MEMTYPE_DATA);
+  
   uint16_t start = tick_ms;
   for(;;)
   {
@@ -201,6 +248,10 @@ void charger_start(void)
       continue;
     }
     start+= CYCLE_TIME;
+    
+    uint16_t sw_start = tick_ms;
+    
+    scan_adc();
     
     scan_key();
     
@@ -235,6 +286,16 @@ void charger_start(void)
     event_bt_start=0;
     event_bt_minus=0;
     event_bt_plus=0;
+    
+    uint16_t sw_elapsed = tick_ms - sw_start;
+    lcd_gotoxy(0,1);
+    char buff[16];
+    sprintf(buff,"%u   ", AdcBuffer[ADC_IN1_CHAN]);
+    lcd_gotoxy(0,0);
+    lcd_putsf(buff);
+    sprintf(buff,"%u   ",sw_elapsed);
+    lcd_gotoxy(0,1);
+    lcd_putsf(buff);
     
     /* Reload IWDG counter */
     IWDG->KR = IWDG_KEY_REFRESH;

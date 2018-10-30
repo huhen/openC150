@@ -5,6 +5,18 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
+#define EVENT_SHORT     (1)
+#define EVENT_LONG      (2)
+
+extern uint16_t vcc_in;
+extern uint16_t v_bat;
+extern uint16_t v_cell_1;
+extern uint16_t v_cell_2;
+extern uint16_t v_cell_3;
+extern uint16_t v_cell_4;
+extern uint16_t v_cell_5;
+extern uint16_t v_cell_6;
+
 extern uint8_t event_bt_stop;
 extern uint8_t event_bt_start;
 extern uint8_t event_bt_minus;

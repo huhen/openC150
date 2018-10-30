@@ -36,8 +36,10 @@
 /* Exported constants --------------------------------------------------------*/
 extern volatile uint16_t tick_ms;
 extern volatile uint16_t tick_s;
-extern volatile uint16_t beep_start_ms;
-extern volatile uint16_t beep_time_ms;
+extern uint16_t beep_start_ms;
+extern uint16_t beep_time_ms;
+extern volatile uint16_t AdcBuffer[16];
+extern volatile uint8_t adc_complete;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 #ifdef _COSMIC_

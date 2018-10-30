@@ -42,10 +42,13 @@
 /* Private variables ---------------------------------------------------------*/
 uint8_t RxBufferWritePosition = 0;
 uint8_t RxBuffer[RxBufferSize];
+uint8_t AdcCurrentChannel = 0;
+volatile uint16_t AdcBuffer[16];
 volatile uint16_t tick_ms = 0;
 volatile uint16_t tick_s = 0;
-volatile uint16_t beep_start_ms = 0;
-volatile uint16_t beep_time_ms = 0;
+volatile uint8_t adc_complete = 0;
+uint16_t beep_start_ms = 0;
+uint16_t beep_time_ms = 0;
 static uint16_t _tick_ms = 0;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -305,7 +308,7 @@ INTERRUPT_HANDLER(TIM2_CAP_COM_IRQHandler, 14)
     /* after 1 ms */
     tick_ms++;
     _tick_ms++;
-    if(_tick_ms>999)
+    if(_tick_ms==1000)
     {
       _tick_ms=0;
       tick_s++;
@@ -480,9 +483,32 @@ INTERRUPT_HANDLER(UART3_RX_IRQHandler, 21)
 */
 INTERRUPT_HANDLER(ADC2_IRQHandler, 22)
 {
-  /* In order to detect unexpected events during development,
-  it is recommended to set a breakpoint on the following instruction.
-  */
+  /* Get converted value */
+  /* Read LSB first */
+  uint8_t templ = ADC2->DRL;
+  /* Then read MSB */
+  uint16_t temph = ADC2->DRH;
+  temph<<=8;
+  temph|=templ;
+  
+  AdcBuffer[AdcCurrentChannel++]=temph;
+  
+  if(AdcCurrentChannel==0x10)
+  {
+    AdcCurrentChannel=0;
+    
+    /*Stop Conversion */
+    ADC2->CR1 &= (uint8_t)(~ADC2_CR1_ADON);
+    adc_complete++;
+  }
+
+  /* Clear the ADC2 channels */
+  ADC2->CSR &= (uint8_t)(~ADC2_CSR_CH);
+  /* Select the ADC2 channel */
+  ADC2->CSR |= AdcCurrentChannel;
+  
+  /* Clear IT Pending Bit */
+  ADC2->CSR &= (uint8_t)(~ADC2_CSR_EOC);
 }
 #else /* STM8S105 or STM8S103 or STM8S903 or STM8AF626x or STM8AF622x */
 /**

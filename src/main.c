@@ -11,8 +11,8 @@ static void UART_Config(void);
 static void TIM2_Config(void);
 static void TIM3_Config(void);
 static void TIM4_Config(void);
+static void ADC_Config(void);
 static uint32_t LSIMeasurment(void);
-
 
 /**
 * @brief  Main program.
@@ -52,12 +52,38 @@ void main(void)
   /* UART configuration */
   UART_Config();
   
+  /* ADC configuration */
+  ADC_Config();
+  
   /* enable interrupts */
   enableInterrupts();
   
   charger_start();
   
   for(;;);
+}
+
+/**
+* @brief  Configure ADC2 Continuous Conversion with End Of Conversion interrupt 
+*         enabled .
+* @param  None
+* @retval None
+*/
+static void ADC_Config()
+{
+  /* De-Init ADC peripheral*/
+  ADC2_DeInit();
+  
+  /* Init ADC2 peripheral */
+  ADC2_Init(ADC2_CONVERSIONMODE_CONTINUOUS, ADC2_CHANNEL_0, ADC2_PRESSEL_FCPU_D18, \
+    ADC2_EXTTRIG_TIM, DISABLE, ADC2_ALIGN_RIGHT, ADC2_SCHMITTTRIG_ALL,\
+      DISABLE);
+  
+  /* Enable EOC interrupt */
+  ADC2->CSR |= (uint8_t)ADC2_CSR_EOCIE;
+            
+  /*Start Conversion */
+  ADC2->CR1 |= ADC2_CR1_ADON;
 }
 
 /**
@@ -84,13 +110,13 @@ static void TIM3_Config(void)
   TIM3_DeInit();
   
   TIM3_TimeBaseInit(TIM3_PRESCALER_16, 500);
-
+  
   // PWM1 Mode configuration: Channel2
   TIM3_OC2Init(TIM3_OCMODE_PWM1, TIM3_OUTPUTSTATE_ENABLE, 0, TIM3_OCPOLARITY_HIGH);
   TIM3_OC2PreloadConfig(ENABLE);
-
+  
   TIM3_ARRPreloadConfig(ENABLE);
-
+  
   TIM3_Cmd(ENABLE); 
 }
 
@@ -196,6 +222,23 @@ static void GPIO_Config(void)
   GPIO_Init(BT_PLUS_PORT, BT_PLUS_PIN, GPIO_MODE_IN_FL_NO_IT);
   GPIO_Init(BT_MINUS_PORT, BT_MINUS_PIN, GPIO_MODE_IN_FL_NO_IT);
   GPIO_Init(BT_STOP_PORT, BT_STOP_PIN, GPIO_MODE_IN_FL_NO_IT);
+  
+  GPIO_Init(ADC_VCC_IN_PORT, ADC_VCC_IN_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_IN1_PORT, ADC_IN1_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_VBAT_PORT, ADC_VBAT_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CELL_1_PORT, ADC_CELL_1_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CELL_2_PORT, ADC_CELL_2_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CELL_3_PORT, ADC_CELL_3_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CELL_4_PORT, ADC_CELL_4_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CELL_5_PORT, ADC_CELL_5_PIN, GPIO_MODE_IN_FL_NO_IT);
+  //GPIO_Init(ADC_IN8_PORT, ADC_IN8_PIN, GPIO_MODE_IN_FL_NO_IT);
+  //GPIO_Init(ADC_IN9_PORT, ADC_IN9_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CELL_6_PORT, ADC_CELL_6_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CURRENT_DISCHARGE_PORT, ADC_CURRENT_DISCHARGE_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_CURRENT_CHARGE_PORT, ADC_CURRENT_CHARGE_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_TEMP_INT_PORT, ADC_TEMP_INT_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_TEMP_EXT_PORT, ADC_TEMP_EXT_PIN, GPIO_MODE_IN_FL_NO_IT);
+  GPIO_Init(ADC_5V_PORT, ADC_5V_PIN, GPIO_MODE_IN_FL_NO_IT);
 }
 
 /**
