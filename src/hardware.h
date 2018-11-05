@@ -42,6 +42,9 @@
 #define PWM_CHARGE_UP_PORT      (GPIOC)
 #define PWM_DISCHARGE_PORT      (GPIOC)
 
+#define CHARGE_DISABLE_PIN      (GPIO_PIN_7)
+#define CHARGE_DISABLE_PORT     (GPIOF)
+
 #define LCD_RS_PIN              (GPIO_PIN_4)
 #define LCD_E_PIN               (GPIO_PIN_5)
 #define LCD_DB4_PIN             (GPIO_PIN_0)
@@ -83,7 +86,7 @@
 #define ADC_CURRENT_CHARGE_PIN  (GPIO_PIN_4)
 #define ADC_TEMP_INT_PIN        (GPIO_PIN_5)
 #define ADC_TEMP_EXT_PIN        (GPIO_PIN_6)
-#define ADC_5V_PIN              (GPIO_PIN_7)
+//#define ADC_IN15_PIN            (GPIO_PIN_7)
 #define ADC_VCC_IN_PORT         (GPIOB)
 #define ADC_IN1_PORT            (GPIOB)
 #define ADC_VBAT_PORT           (GPIOB)
@@ -99,7 +102,7 @@
 #define ADC_CURRENT_CHARGE_PORT (GPIOF)
 #define ADC_TEMP_INT_PORT       (GPIOF)
 #define ADC_TEMP_EXT_PORT       (GPIOF)
-#define ADC_5V_PORT             (GPIOF)
+//#define ADC_IN15_PORT           (GPIOF)
 #define ADC_VCC_IN_CHAN          (0)
 #define ADC_IN1_CHAN             (1)
 #define ADC_VBAT_CHAN            (2)
@@ -115,14 +118,14 @@
 #define ADC_CURRENT_CHARGE_CHAN  (12)
 #define ADC_TEMP_INT_CHAN        (13)
 #define ADC_TEMP_EXT_CHAN        (14)
-#define ADC_5V_CHAN              (15)
+//#define ADC_IN15_CHAN             (15)
 
 #define WriteHigh(Port, Pins)   Port->ODR |= (uint8_t)(Pins)
 #define WriteLow(Port, Pins)    Port->ODR &= (uint8_t)(~(Pins))
 
 #define BAL_CELL_1_ON           WriteHigh(BAL_CELL_1_PORT, BAL_CELL_1_PIN)
 #define BAL_CELL_1_OFF          WriteLow(BAL_CELL_1_PORT, BAL_CELL_1_PIN)
-#define BAL_CELL_2_ON           WriteHigh(BAL_CELL_2_POR, BAL_CELL_2_PIN)
+#define BAL_CELL_2_ON           WriteHigh(BAL_CELL_2_PORT, BAL_CELL_2_PIN)
 #define BAL_CELL_2_OFF          WriteLow(BAL_CELL_2_PORT, BAL_CELL_2_PIN)
 #define BAL_CELL_3_ON           WriteHigh(BAL_CELL_3_PORT, BAL_CELL_3_PIN)
 #define BAL_CELL_3_OFF          WriteLow(BAL_CELL_3_PORT, BAL_CELL_3_PIN)
@@ -139,8 +142,11 @@
 #define BEEP_ON                 WriteHigh(BEEP_PORT, BEEP_PIN)
 #define BEEP_OFF                WriteLow(BEEP_PORT, BEEP_PIN)
 
-#define BAT_KEY_ON              WriteHigh(BAT_KEY_PORT, BAT_KEY_PIN)
-#define BAT_KEY_OFF             WriteLow(BAT_KEY_PORT, BAT_KEY_PIN)
+#define BAT_KEY_OFF             WriteHigh(BAT_KEY_PORT, BAT_KEY_PIN)
+#define BAT_KEY_ON              WriteLow(BAT_KEY_PORT, BAT_KEY_PIN)
+
+#define CHARGE_DISABLE_OFF       WriteLow(CHARGE_DISABLE_PORT, CHARGE_DISABLE_PIN)
+#define CHARGE_DISABLE_ON        WriteHigh(CHARGE_DISABLE_PORT, CHARGE_DISABLE_PIN)
 
 #define INPUT_DC_KEY_ON         WriteHigh(INPUT_DC_KEY_PORT, INPUT_DC_KEY_PIN)
 #define INPUT_DC_KEY_OFF        WriteLow(INPUT_DC_KEY_PORT, INPUT_DC_KEY_PIN)
@@ -149,6 +155,12 @@
 #define BT_PLUS                 (!(BT_PLUS_PORT->IDR & (uint8_t)BT_PLUS_PIN))
 #define BT_MINUS                (!(BT_MINUS_PORT->IDR & (uint8_t)BT_MINUS_PIN))
 #define BT_STOP                 (!(BT_STOP_PORT->IDR & (uint8_t)BT_STOP_PIN))
+
+#define TIM1_PERIOD             (500)
+#define CYCLE_TIME              (20)
+#define CYCLE_PER_1S            (1000/CYCLE_TIME)
+#define I_HYSTER                (50)
+#define CELL_BALL_HYSTER        (10)
 
 struct EPROM
 {
@@ -170,6 +182,21 @@ struct EPROM
   int16_t   VCELL_5_CAL2; //859 - 4200mv
   int16_t   VCELL_6_CAL1; //162 - 800mv
   int16_t   VCELL_6_CAL2; //859 - 4200mv
+  
+  int16_t   DISCHARGE_CAL1; //64 - 200ma
+  int16_t   DISCHARGE_CAL2; //639 - 2000ma
+  int16_t   CHARGE_CAL1; //10 - 200ma
+  int16_t   CHARGE_CAL2; //
+  
+  uint8_t   LiType;
+  uint8_t   LiMode;
+  uint16_t  LiCurrent;
+  uint8_t   LiNumS;
+  
+  uint16_t   LiPoTargetV;
+  uint16_t   LiIoTargetV;
+  uint16_t   LiFeTargetV;
+  uint16_t   LiHvTargetV;
 };
 
 extern struct EPROM *config;

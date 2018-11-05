@@ -9,6 +9,7 @@ void lcd_init(void);
 void lcd_gotoxy(char x, char y);
 void lcd_putsf(const char *_str);
 void lcd_putchar(uint8_t d);
+void lcd_put_char();
 void lcd_clear(void);
 
 #endif /* __LCD_H */

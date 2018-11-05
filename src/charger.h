@@ -16,11 +16,15 @@ extern uint16_t v_cell_3;
 extern uint16_t v_cell_4;
 extern uint16_t v_cell_5;
 extern uint16_t v_cell_6;
+extern uint16_t i_discharge;
+extern uint16_t i_charge;
 
 extern uint8_t event_bt_stop;
 extern uint8_t event_bt_start;
 extern uint8_t event_bt_minus;
 extern uint8_t event_bt_plus;
+
+extern char buff[32];
 
 void delay_us(uint8_t us);
 void delay_ms(uint16_t ms);

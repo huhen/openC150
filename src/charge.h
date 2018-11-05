@@ -1,10 +1,12 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __PROG_LI_H
-#define __PROG_LI_H
+#ifndef __CHARGE_H
+#define __CHARGE_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
-int8_t prog_li(void);
+void charge_off();
+void charge_up();
+void charge_down();
 
-#endif /* __PROG_LI_H */
+#endif /* __CHARGE_H */

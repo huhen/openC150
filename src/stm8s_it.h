@@ -35,7 +35,7 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 extern volatile uint16_t tick_ms;
-extern volatile uint16_t tick_s;
+extern volatile uint32_t tick_s;
 extern uint16_t beep_start_ms;
 extern uint16_t beep_time_ms;
 extern volatile uint16_t AdcBuffer[16];

@@ -10,6 +10,17 @@ static const char msg_st[]="SAFETY TIME OUT";
 
 static const char msg_cutoff[]="CUTOFF";
 
+void warn_reset_by_wdg()
+{
+  lcd_clear();
+  
+  lcd_gotoxy(0,0);
+  lcd_putsf("WARNING");
+  
+  lcd_gotoxy(4,1);
+  lcd_putsf("RESET BY WDG");
+}
+
 void err_iv_too_high()
 {
   lcd_clear();

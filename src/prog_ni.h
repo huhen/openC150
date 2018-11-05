@@ -5,6 +5,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
-void prog_ni(void);
+int8_t prog_ni(void);
 
 #endif /* __PROG_NI_H */

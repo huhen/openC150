@@ -5,6 +5,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
-void prog_ef(void);
+int8_t prog_ef(void);
 
 #endif /* __PROG_EF_H */

@@ -5,6 +5,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
-void prog_us(void);
+int8_t prog_us(void);
 
 #endif /* __PROG_US_H */

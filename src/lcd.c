@@ -9,20 +9,20 @@
 */
 static inline void lcd_strob()
 {
-  delay_us(10);
+  delay_us(20);
   WriteHigh(LCD_E_PORT, LCD_E_PIN);
-  delay_us(10);
+  delay_us(20);
   WriteLow(LCD_E_PORT, LCD_E_PIN);
-  delay_us(10);
+  delay_us(20);
 }
 
 static void lcd_write_high(uint8_t d)
 {
-  delay_us(10);
+  delay_us(20);
   
   WriteLow(LCD_RS_PORT, LCD_RS_PIN);
   
-  delay_us(10);
+  delay_us(20);
   
   if(d&0x80)
   {
@@ -62,11 +62,11 @@ static void lcd_write_high(uint8_t d)
   
   lcd_strob();
   
-  delay_us(10);
+  delay_us(20);
   
   WriteHigh(LCD_RS_PORT, LCD_RS_PIN);
   
-  delay_us(10);
+  delay_us(20);
 }
 
 /**
@@ -153,6 +153,11 @@ void lcd_putchar(uint8_t d)
   lcd_strob();
 }
 
+void lcd_put_char()
+{
+  lcd_putchar(' ');
+}
+
 /**
 * @brief  Write comand to lcd
 * @param  None
@@ -160,19 +165,19 @@ void lcd_putchar(uint8_t d)
 */
 static void lcd_com(uint8_t d)
 {
-  delay_us(10);
+  delay_us(20);
   
   WriteLow(LCD_RS_PORT, LCD_RS_PIN);
   
-  delay_us(10);
+  delay_us(20);
   
   lcd_putchar(d);
   
-  delay_us(10);
+  delay_us(20);
   
   WriteHigh(LCD_RS_PORT, LCD_RS_PIN);
   
-  delay_us(10);
+  delay_us(20);
 }
 
 /**
@@ -184,7 +189,7 @@ void lcd_clear(void)
 {
   lcd_com(0x01);
   
-  delay_ms(2);
+  delay_ms(3);
 }
 
 /**

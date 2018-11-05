@@ -1,10 +1,12 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __PROG_LI_H
-#define __PROG_LI_H
+#ifndef __DISCHARGE_H
+#define __DISCHARGE_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
-int8_t prog_li(void);
+void discharge_off();
+void discharge_up();
+void discharge_down();
 
-#endif /* __PROG_LI_H */
+#endif /* __DISCHARGE_H */

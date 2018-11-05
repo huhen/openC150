@@ -5,6 +5,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s.h"
 
+void warn_reset_by_wdg();
+
 void err_iv_too_high();
 void err_iv_too_low();
 void err_rp_check();

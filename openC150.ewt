@@ -2100,10 +2100,22 @@
     <group>
         <name>src</name>
         <file>
+            <name>$PROJ_DIR$\src\charge.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\charge.h</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\src\charger.c</name>
         </file>
         <file>
             <name>$PROJ_DIR$\src\charger.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\discharge.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\src\discharge.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\src\errors.c</name>

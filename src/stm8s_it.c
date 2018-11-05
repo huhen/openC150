@@ -45,7 +45,7 @@ uint8_t RxBuffer[RxBufferSize];
 uint8_t AdcCurrentChannel = 0;
 volatile uint16_t AdcBuffer[16];
 volatile uint16_t tick_ms = 0;
-volatile uint16_t tick_s = 0;
+volatile uint32_t tick_s = 0;
 volatile uint8_t adc_complete = 0;
 uint16_t beep_start_ms = 0;
 uint16_t beep_time_ms = 0;
@@ -493,7 +493,7 @@ INTERRUPT_HANDLER(ADC2_IRQHandler, 22)
   
   AdcBuffer[AdcCurrentChannel++]=temph;
   
-  if(AdcCurrentChannel==0x10)
+  if(AdcCurrentChannel==0x0f)
   {
     AdcCurrentChannel=0;
     

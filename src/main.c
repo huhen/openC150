@@ -8,6 +8,7 @@ static void CLK_Config(void);
 static void GPIO_Config(void);
 static void IWDG_Config(void);
 static void UART_Config(void);
+static void TIM1_Config(void);
 static void TIM2_Config(void);
 static void TIM3_Config(void);
 static void TIM4_Config(void);
@@ -39,6 +40,9 @@ void main(void)
   
   /* IWDG Configuration */
   IWDG_Config();
+  
+  /* TIM1 configuration */
+  TIM1_Config();
   
   /* TIM2 configuration */
   TIM2_Config();
@@ -81,7 +85,7 @@ static void ADC_Config()
   
   /* Enable EOC interrupt */
   ADC2->CSR |= (uint8_t)ADC2_CSR_EOCIE;
-            
+  
   /*Start Conversion */
   ADC2->CR1 |= ADC2_CR1_ADON;
 }
@@ -159,6 +163,60 @@ static void TIM2_Config(void)
 }
 
 /**
+* @brief  Configure TIM1 to generate 7 PWM signals with 4 different duty cycles
+* @param  None
+* @retval None
+*/
+static void TIM1_Config(void)
+{
+  
+  TIM1_DeInit();
+  
+  /* Time Base configuration */
+  /*
+  TIM1_Period = 500 - 32kHz
+  TIM1_Prescaler = 0
+  TIM1_CounterMode = TIM1_COUNTERMODE_UP
+  TIM1_RepetitionCounter = 0
+  */
+  
+  TIM1_TimeBaseInit(0, TIM1_COUNTERMODE_UP, TIM1_PERIOD, 0);
+  
+  /* Channel 1, 2, 3 Configuration in PWM mode */
+  
+  /*
+  TIM1_OCMode = TIM1_OCMODE_PWM2
+  TIM1_OutputState = TIM1_OUTPUTSTATE_ENABLE
+  TIM1_OutputNState = TIM1_OUTPUTNSTATE_ENABLE
+  TIM1_Pulse = CCR1_Val
+  TIM1_OCPolarity = TIM1_OCPOLARITY_LOW
+  TIM1_OCNPolarity = TIM1_OCNPOLARITY_HIGH
+  TIM1_OCIdleState = TIM1_OCIDLESTATE_SET
+  TIM1_OCNIdleState = TIM1_OCIDLESTATE_RESET
+  
+  */
+  TIM1_OC1Init(TIM1_OCMODE_PWM2, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE,
+               0, TIM1_OCPOLARITY_LOW, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET,
+               TIM1_OCNIDLESTATE_RESET); 
+  
+  /*TIM1_Pulse = CCR2_Val*/
+  TIM1_OC2Init(TIM1_OCMODE_PWM1, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE,
+               0, TIM1_OCPOLARITY_LOW, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET, 
+               TIM1_OCNIDLESTATE_RESET);
+  
+  /*TIM1_Pulse = Discharge*/
+  TIM1_OC3Init(TIM1_OCMODE_PWM2, TIM1_OUTPUTSTATE_ENABLE, TIM1_OUTPUTNSTATE_ENABLE,
+               0, TIM1_OCPOLARITY_LOW, TIM1_OCNPOLARITY_HIGH, TIM1_OCIDLESTATE_SET,
+               TIM1_OCNIDLESTATE_RESET);
+  
+  /* TIM1 counter enable */
+  TIM1_Cmd(ENABLE);
+  
+  /* TIM1 Main Output Enable */
+  TIM1_CtrlPWMOutputs(ENABLE);
+}
+
+/**
 * @brief  Initialize GPIO
 * @param  None
 * @retval None
@@ -197,6 +255,9 @@ static void GPIO_Config(void)
   
   GPIO_Init(INPUT_DC_KEY_PORT, INPUT_DC_KEY_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
   INPUT_DC_KEY_OFF;
+  
+  GPIO_Init(CHARGE_DISABLE_PORT, CHARGE_DISABLE_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
+  CHARGE_DISABLE_ON;
   
   GPIO_Init(BAL_CELL_1_PORT, BAL_CELL_1_PIN, GPIO_MODE_OUT_PP_LOW_FAST);
   BAL_CELL_1_OFF;
@@ -238,7 +299,7 @@ static void GPIO_Config(void)
   GPIO_Init(ADC_CURRENT_CHARGE_PORT, ADC_CURRENT_CHARGE_PIN, GPIO_MODE_IN_FL_NO_IT);
   GPIO_Init(ADC_TEMP_INT_PORT, ADC_TEMP_INT_PIN, GPIO_MODE_IN_FL_NO_IT);
   GPIO_Init(ADC_TEMP_EXT_PORT, ADC_TEMP_EXT_PIN, GPIO_MODE_IN_FL_NO_IT);
-  GPIO_Init(ADC_5V_PORT, ADC_5V_PIN, GPIO_MODE_IN_FL_NO_IT);
+  //GPIO_Init(ADC_IN15_PORT, ADC_IN15_PIN, GPIO_MODE_IN_FL_NO_IT);
 }
 
 /**
@@ -299,7 +360,6 @@ static void IWDG_Config(void)
   /* Get measured LSI frequency */
   uint32_t LsiFreq = LSIMeasurment();
   
-#ifndef DEBUG
   /* Enable IWDG (the LSI oscillator will be enabled by hardware) */
   IWDG_Enable();
   
@@ -313,16 +373,14 @@ static void IWDG_Config(void)
   
   /* Set counter reload value to obtain 250ms IWDG Timeout.
   Counter Reload Value = 250ms/IWDG counter clock period
-  = 250ms / (LSI/128)
-  = 0.25s / (LsiFreq/128)
-  = LsiFreq/(128 * 4)
-  = LsiFreq/512
+  = LsiFreq/(256 * 4)
+  = LsiFreq/1024
+  = ~251ms
   */
-  IWDG_SetReload((uint8_t)(LsiFreq/512));
+  IWDG_SetReload((uint8_t)(LsiFreq/1024)); 
   
   /* Reload IWDG counter */
   IWDG->KR = IWDG_KEY_REFRESH;
-#endif /* !DEBUG */
 }
 
 /**
