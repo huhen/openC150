@@ -1,7 +1,6 @@
 [submodule "scmrtos"]
 	path = scmrtos
 	url = https://github.com/scmrtos/scmrtos.git
-
 [submodule "STM8S_StdPeriph_Driver"]
 	path = STM8S_StdPeriph_Driver
 	url = https://github.com/huhen/STM8S_StdPeriph_Driver.git
