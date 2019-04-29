@@ -1,7 +1,8 @@
-Debug/
-Release/
-settings/
-*.dep
+iar/Debug/
+iar/Release/
+iar/settings/
+iar/openC150.dep
+iar/openC150.ewt
 
 # Prerequisites
 *.d

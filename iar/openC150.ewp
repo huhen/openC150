@@ -146,7 +146,7 @@
                 </option>
                 <option>
                     <name>IccOptLevel</name>
-                    <state>0</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>IccOptStrategy</name>
@@ -155,12 +155,12 @@
                 </option>
                 <option>
                     <name>IccOptLevelSlave</name>
-                    <state>0</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>IccOptAllowList</name>
                     <version>0</version>
-                    <state>000000</state>
+                    <state>100100</state>
                 </option>
                 <option>
                     <name>IccGenerateDebugInfo</name>
@@ -190,9 +190,6 @@
                     <name>CCDefines</name>
                     <state>STM8S207</state>
                     <state>F_MASTER=16000000</state>
-                    <state>F_CPU=16000000</state>
-                    <state>DEBUG</state>
-                    <state>USE_FULL_ASSERT</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -260,8 +257,12 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state>$PROJ_DIR$\src</state>
-                    <state>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc</state>
+                    <state>$PROJ_DIR$\..\src</state>
+                    <state>$PROJ_DIR$\..\src\inc</state>
+                    <state>$PROJ_DIR$\..\scmrtos\core</state>
+                    <state>$PROJ_DIR$\..\scmrtos\ext\profiler</state>
+                    <state>$PROJ_DIR$\..\scmrtos\port\stm8\iar</state>
+                    <state>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -291,7 +292,7 @@
                 </option>
                 <option>
                     <name>IccLang</name>
-                    <state>2</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IccCDialect</name>
@@ -394,7 +395,7 @@
                 </option>
                 <option>
                     <name>AsmIncludePath</name>
-                    <state></state>
+                    <state>$PROJ_DIR$\..\src\inc</state>
                 </option>
                 <option>
                     <name>AsmDefines</name>
@@ -1065,8 +1066,8 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state>$PROJ_DIR$\src</state>
-                    <state>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc</state>
+                    <state>$PROJ_DIR$\..\src</state>
+                    <state>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1297,7 +1298,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state>$PROJ_DIR$\openC150.hex</state>
+                    <state>$PROJ_DIR$\..\openC150.hex</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -1617,28 +1618,28 @@
         <group>
             <name>core</name>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\os_kernel.cpp</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\os_kernel.cpp</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\os_kernel.h</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\os_kernel.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\os_services.cpp</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\os_services.cpp</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\os_services.h</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\os_services.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\scmRTOS.h</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\scmRTOS.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\scmRTOS_defs.h</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\scmRTOS_defs.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\usrlib.cpp</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\usrlib.cpp</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\scmrtos\core\usrlib.h</name>
+                <name>$PROJ_DIR$\..\scmrtos\core\usrlib.h</name>
             </file>
         </group>
         <group>
@@ -1646,22 +1647,22 @@
             <group>
                 <name>profiler</name>
                 <file>
-                    <name>$PROJ_DIR$\scmrtos\ext\profiler\profiler.h</name>
+                    <name>$PROJ_DIR$\..\scmrtos\ext\profiler\profiler.h</name>
                 </file>
             </group>
             <group>
                 <name>recursive-mutex</name>
                 <file>
-                    <name>$PROJ_DIR$\scmrtos\ext\recursive-mutex\recursive_mutex.cpp</name>
+                    <name>$PROJ_DIR$\..\scmrtos\ext\recursive-mutex\recursive_mutex.cpp</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\scmrtos\ext\recursive-mutex\recursive_mutex.h</name>
+                    <name>$PROJ_DIR$\..\scmrtos\ext\recursive-mutex\recursive_mutex.h</name>
                 </file>
             </group>
             <group>
                 <name>round-robin</name>
                 <file>
-                    <name>$PROJ_DIR$\scmrtos\ext\round-robin\round-robin.h</name>
+                    <name>$PROJ_DIR$\..\scmrtos\ext\round-robin\round-robin.h</name>
                 </file>
             </group>
         </group>
@@ -1672,13 +1673,13 @@
                 <group>
                     <name>iar</name>
                     <file>
-                        <name>$PROJ_DIR$\scmrtos\port\stm8\iar\os_target.cpp</name>
+                        <name>$PROJ_DIR$\..\scmrtos\port\stm8\iar\os_target.cpp</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\scmrtos\port\stm8\iar\os_target.h</name>
+                        <name>$PROJ_DIR$\..\scmrtos\port\stm8\iar\os_target.h</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\scmrtos\port\stm8\iar\os_target_asm.s</name>
+                        <name>$PROJ_DIR$\..\scmrtos\port\stm8\iar\os_target_asm.s</name>
                     </file>
                 </group>
             </group>
@@ -1686,86 +1687,29 @@
     </group>
     <group>
         <name>src</name>
+        <group>
+            <name>inc</name>
+            <file>
+                <name>$PROJ_DIR$\..\src\inc\pin.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\src\inc\scmRTOS_CONFIG.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\src\inc\scmRTOS_extensions.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\src\inc\scmRTOS_TARGET_CFG.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\src\inc\stm8_target.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\src\inc\stm8s_conf.h</name>
+            </file>
+        </group>
         <file>
-            <name>$PROJ_DIR$\src\charge.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\charge.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\charger.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\charger.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\discharge.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\discharge.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\errors.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\errors.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\hardware.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\lcd.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\lcd.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\main.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_ef.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_ef.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_li.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_li.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_lm.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_lm.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_ni.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_ni.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_pb.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_pb.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_us.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\prog_us.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\stm8s_conf.h</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\stm8s_it.c</name>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\src\stm8s_it.h</name>
+            <name>$PROJ_DIR$\..\src\main.cpp</name>
         </file>
     </group>
     <group>
@@ -1773,124 +1717,82 @@
         <group>
             <name>inc</name>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_adc2.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_adc1.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_awu.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_adc2.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_beep.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_awu.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_clk.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_beep.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_exti.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_can.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_flash.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_clk.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_gpio.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_exti.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_i2c.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_flash.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_itc.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_gpio.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_iwdg.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_i2c.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_rst.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_itc.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_spi.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_iwdg.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_tim1.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_rst.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_tim2.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_spi.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_tim3.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_tim1.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_tim4.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_tim2.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_uart1.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_tim3.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_uart3.h</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_tim4.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_wwdg.h</name>
-            </file>
-        </group>
-        <group>
-            <name>src</name>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_adc2.c</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_tim5.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_awu.c</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_tim6.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_beep.c</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_uart1.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_clk.c</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_uart2.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_exti.c</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_uart3.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_flash.c</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_uart4.h</name>
             </file>
             <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_gpio.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_i2c.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_itc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_iwdg.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_rst.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_spi.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_tim1.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_tim2.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_tim3.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_tim4.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_uart1.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_uart3.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_wwdg.c</name>
+                <name>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc\stm8s_wwdg.h</name>
             </file>
         </group>
     </group>
