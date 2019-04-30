@@ -1,5 +1,4 @@
-iar/Debug/
-iar/Release/
-iar/settings/
-iar/openC150.dep
-iar/openC150.ewt
+iar/
+!iar/openC150.eww
+!iar/openC150.ewp
+!iar/openC150.ewd
