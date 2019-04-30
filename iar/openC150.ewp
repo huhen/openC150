@@ -146,7 +146,7 @@
                 </option>
                 <option>
                     <name>IccOptLevel</name>
-                    <state>2</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>IccOptStrategy</name>
@@ -155,12 +155,12 @@
                 </option>
                 <option>
                     <name>IccOptLevelSlave</name>
-                    <state>2</state>
+                    <state>3</state>
                 </option>
                 <option>
                     <name>IccOptAllowList</name>
                     <version>0</version>
-                    <state>100100</state>
+                    <state>111110</state>
                 </option>
                 <option>
                     <name>IccGenerateDebugInfo</name>
@@ -190,6 +190,7 @@
                     <name>CCDefines</name>
                     <state>STM8S207</state>
                     <state>F_MASTER=16000000</state>
+                    <state>USE_FULL_ASSERT</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -501,7 +502,7 @@
                 </option>
                 <option>
                     <name>OOCObjCopyEnable</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
             </data>
         </settings>
@@ -967,7 +968,7 @@
                 <option>
                     <name>IccOptAllowList</name>
                     <version>0</version>
-                    <state>111111</state>
+                    <state>111110</state>
                 </option>
                 <option>
                     <name>IccGenerateDebugInfo</name>
@@ -995,10 +996,8 @@
                 </option>
                 <option>
                     <name>CCDefines</name>
-                    <state>NDEBUG</state>
                     <state>STM8S207</state>
-                    <state>F_CPU=16000000</state>
-                    <state>RELEASE</state>
+                    <state>F_MASTER=16000000</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -1014,11 +1013,11 @@
                 </option>
                 <option>
                     <name>CCListCFile</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CCListCMnemonics</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CCListCMessages</name>
@@ -1067,6 +1066,10 @@
                 <option>
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\..\src</state>
+                    <state>$PROJ_DIR$\..\src\inc</state>
+                    <state>$PROJ_DIR$\..\scmrtos\core</state>
+                    <state>$PROJ_DIR$\..\scmrtos\ext\profiler</state>
+                    <state>$PROJ_DIR$\..\scmrtos\port\stm8\iar</state>
                     <state>$PROJ_DIR$\..\STM8S_StdPeriph_Driver\inc</state>
                 </option>
                 <option>
@@ -1097,7 +1100,7 @@
                 </option>
                 <option>
                     <name>IccLang</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IccCDialect</name>
@@ -1168,7 +1171,7 @@
                 </option>
                 <option>
                     <name>AsmListFile</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>AsmListNoDiagnostics</name>
@@ -1200,11 +1203,11 @@
                 </option>
                 <option>
                     <name>AsmIncludePath</name>
-                    <state></state>
+                    <state>$PROJ_DIR$\..\src\inc</state>
                 </option>
                 <option>
                     <name>AsmDefines</name>
-                    <state></state>
+                    <state>F_CPU=16000000</state>
                 </option>
                 <option>
                     <name>AsmPreprocOutput</name>
@@ -1357,7 +1360,7 @@
                 </option>
                 <option>
                     <name>IlinkDebugInfoEnable</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>IlinkKeepSymbols</name>
@@ -1393,19 +1396,19 @@
                 </option>
                 <option>
                     <name>IlinkLogFile</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogInitialization</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogModule</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogSection</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogVeneer</name>
@@ -1544,15 +1547,15 @@
                 </option>
                 <option>
                     <name>IlinkLogAutoLibSelect</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogRedirSymbols</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogUnusedFragments</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkCrcReverseByteOrder</name>

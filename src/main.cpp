@@ -231,4 +231,17 @@ INTERRUPT_HANDLER(Timer3_period_ISR, ITC_IRQ_TIM3_OVF)
 }
 
 //---------------------------------------------------------------------------
+#ifdef  USE_FULL_ASSERT
+#ifdef __cplusplus
+  extern "C" {
+#endif
+    
+void assert_failed(uint8_t* file, uint32_t line)
+{
+  for(;;);
+}
 
+#ifdef __cplusplus
+}
+#endif
+#endif /* USE_FULL_ASSERT */
