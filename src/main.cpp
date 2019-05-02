@@ -15,23 +15,23 @@
 //*
 //*     Copyright (c) 2003-2016, scmRTOS Team
 //*
-//*     Permission is hereby granted, free of charge, to any person 
-//*     obtaining  a copy of this software and associated documentation 
-//*     files (the "Software"), to deal in the Software without restriction, 
-//*     including without limitation the rights to use, copy, modify, merge, 
-//*     publish, distribute, sublicense, and/or sell copies of the Software, 
-//*     and to permit persons to whom the Software is furnished to do so, 
+//*     Permission is hereby granted, free of charge, to any person
+//*     obtaining  a copy of this software and associated documentation
+//*     files (the "Software"), to deal in the Software without restriction,
+//*     including without limitation the rights to use, copy, modify, merge,
+//*     publish, distribute, sublicense, and/or sell copies of the Software,
+//*     and to permit persons to whom the Software is furnished to do so,
 //*     subject to the following conditions:
 //*
-//*     The above copyright notice and this permission notice shall be included 
+//*     The above copyright notice and this permission notice shall be included
 //*     in all copies or substantial portions of the Software.
 //*
-//*     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-//*     EXPRESS  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
-//*     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
-//*     IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
-//*     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-//*     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH 
+//*     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//*     EXPRESS  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+//*     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+//*     IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+//*     CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+//*     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 //*     THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //*
 //*     =================================================================
@@ -122,7 +122,7 @@ OS::TEventFlag ef;              // set in Proc3, waited in Proc2
 int main()
 {
     CLK->CKDIVR = 0;
-    
+
     // Setup user timer interrupt
     // 1001 periods per second (per 1000 OS timer ticks) for better scope view
     TIM3->PSCR = 0;		// clk/1
@@ -148,7 +148,7 @@ int main()
     GPIOB->CR2 = 0xFF;
     GPIOB->DDR = 0xFF;
 #endif
-    
+
     // Start System Timer
     // TODO: Set lowest priority for system timer ISR
     TIM4->PSCR = tim4_prescaler_power;
@@ -233,13 +233,13 @@ INTERRUPT_HANDLER(Timer3_period_ISR, ITC_IRQ_TIM3_OVF)
 //---------------------------------------------------------------------------
 #ifdef  USE_FULL_ASSERT
 #ifdef __cplusplus
-  extern "C" {
+extern "C" {
 #endif
-    
-void assert_failed(uint8_t* file, uint32_t line)
-{
-  for(;;);
-}
+
+    void assert_failed(uint8_t* file, uint32_t line)
+    {
+        for(;;);
+    }
 
 #ifdef __cplusplus
 }
