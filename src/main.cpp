@@ -347,12 +347,12 @@ template<> void TProcMain::exec()
         
         //if(PinStart.Signalled())
         //{
-            //PinBeep.On();
-            //sleep(1);
-            //PinBeep.Off();
-            //sleep(1000);
+        //PinBeep.On();
+        //sleep(1);
+        //PinBeep.Off();
+        //sleep(1000);
         //}
-  
+        
         //PROC1.Off();
         //Timer3_Ovf.wait();
         //PROC1.On();
@@ -366,7 +366,7 @@ template<> void TProc2::exec()
     for(;;) {
         if(PinStart.Signalled())
         {
-        PinCooler.On();
+            PinCooler.On();
         }
         else
         {
