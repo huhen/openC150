@@ -50,7 +50,7 @@
 // stm8_target.h -- Standard file name for both STM8S and STM8L StdPeriph_Driver libraries
 // Switching between the libraries can be done by changing include path
 // from STM8S_StdPeriph_Driver to STM8L15x_StdPeriph_Driver
- 
+
 #include "stm8s_conf.h"
 
 #define TARGET_STM8S
