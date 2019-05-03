@@ -163,39 +163,39 @@ extern TPinNC12 PinNC12;
 
 struct EPROM
 {
-  int16_t   VCC_CAL1; //587 - 11000mv
-  int16_t   VCC_CAL2; //907 - 17000mv
-  
-  int16_t   VBAT_CAL1; //28 - 800mv
-  int16_t   VBAT_CAL2; //928 - 25200mv
-  
-  int16_t   VCELL_1_CAL1; //162 - 800mv
-  int16_t   VCELL_1_CAL2; //859 - 4200mv
-  int16_t   VCELL_2_CAL1; //162 - 800mv
-  int16_t   VCELL_2_CAL2; //859 - 4200mv
-  int16_t   VCELL_3_CAL1; //162 - 800mv
-  int16_t   VCELL_3_CAL2; //859 - 4200mv
-  int16_t   VCELL_4_CAL1; //162 - 800mv
-  int16_t   VCELL_4_CAL2; //859 - 4200mv
-  int16_t   VCELL_5_CAL1; //162 - 800mv
-  int16_t   VCELL_5_CAL2; //859 - 4200mv
-  int16_t   VCELL_6_CAL1; //162 - 800mv
-  int16_t   VCELL_6_CAL2; //859 - 4200mv
-  
-  int16_t   DISCHARGE_CAL1; //64 - 200ma
-  int16_t   DISCHARGE_CAL2; //639 - 2000ma
-  int16_t   CHARGE_CAL1; //10 - 200ma
-  int16_t   CHARGE_CAL2; //
-  
-  uint8_t   LiType;
-  uint8_t   LiMode;
-  uint16_t  LiCurrent;
-  uint8_t   LiNumS;
-  
-  uint16_t   LiPoTargetV;
-  uint16_t   LiIoTargetV;
-  uint16_t   LiFeTargetV;
-  uint16_t   LiHvTargetV;
+    int16_t   VCC_CAL1; //587 - 11000mv
+    int16_t   VCC_CAL2; //907 - 17000mv
+    
+    int16_t   VBAT_CAL1; //28 - 800mv
+    int16_t   VBAT_CAL2; //928 - 25200mv
+    
+    int16_t   VCELL_1_CAL1; //162 - 800mv
+    int16_t   VCELL_1_CAL2; //859 - 4200mv
+    int16_t   VCELL_2_CAL1; //162 - 800mv
+    int16_t   VCELL_2_CAL2; //859 - 4200mv
+    int16_t   VCELL_3_CAL1; //162 - 800mv
+    int16_t   VCELL_3_CAL2; //859 - 4200mv
+    int16_t   VCELL_4_CAL1; //162 - 800mv
+    int16_t   VCELL_4_CAL2; //859 - 4200mv
+    int16_t   VCELL_5_CAL1; //162 - 800mv
+    int16_t   VCELL_5_CAL2; //859 - 4200mv
+    int16_t   VCELL_6_CAL1; //162 - 800mv
+    int16_t   VCELL_6_CAL2; //859 - 4200mv
+    
+    int16_t   DISCHARGE_CAL1; //64 - 200ma
+    int16_t   DISCHARGE_CAL2; //639 - 2000ma
+    int16_t   CHARGE_CAL1; //10 - 200ma
+    int16_t   CHARGE_CAL2; //
+    
+    uint8_t   LiType;
+    uint8_t   LiMode;
+    uint16_t  LiCurrent;
+    uint8_t   LiNumS;
+    
+    uint16_t   LiPoTargetV;
+    uint16_t   LiIoTargetV;
+    uint16_t   LiFeTargetV;
+    uint16_t   LiHvTargetV;
 };
 
 extern struct EPROM *config;
