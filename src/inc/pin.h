@@ -94,19 +94,19 @@ template<char port, int pin_no, char activestate>
 struct Pin
 {
 	enum { GPIOx_BASE = port_gpio_t<port>::GPIOx_BASE };
-
+    
 	static const uint8_t MODE_DDR_MASK = 0x80;
-        static const uint8_t MODE_CR1_MASK = 0x40;
+    static const uint8_t MODE_CR1_MASK = 0x40;
 	static const uint8_t MODE_CR2_MASK = 0x20;
-        static const uint8_t MODE_ODR_MASK = 0x10;
-
+    static const uint8_t MODE_ODR_MASK = 0x10;
+    
 	static struct
 	{
 		GPIO_TypeDef* operator-> () { return (GPIO_TypeDef*)GPIOx_BASE; }
 	} GPIOx;
-
+    
 	static const uint8_t mask = 1 << pin_no;
-
+    
 	INLINE static void On()
 	{
 		activestate == 'L' ? GPIOx->ODR &= ~mask : GPIOx->ODR |= mask;
@@ -120,45 +120,78 @@ struct Pin
 		// TODO: How to force to BCPL usage?
 		GPIOx->ODR ^= mask;
 	}
-
+    
 	INLINE static void Mode(GPIO_Mode_TypeDef mode)
 	{
-		// stm8s_gpio.c GPIO_Init() clears CR2 bit at start
-		// TODO: Setup sequence depend on high/low output value and present i/o mode?
-		if (mode & MODE_DDR_MASK) {
-			// output mode
-			mode & MODE_ODR_MASK ? GPIOx->ODR |= mask : GPIOx->ODR &= ~mask;
-			// input-pullup/output-OD mode
-			mode & MODE_CR1_MASK ? GPIOx->CR1 |= mask : GPIOx->CR1 &= ~mask;
-			GPIOx->DDR |= mask;
-		} else {
-			// input-pullup/output-OD mode
-			mode & MODE_CR1_MASK ? GPIOx->CR1 |= mask : GPIOx->CR1 &= ~mask;
-			GPIOx->DDR &= ~mask;
-		}
-		// input-interrupt/fast-output mode
-		mode & MODE_CR2_MASK ? GPIOx->CR2 |= mask : GPIOx->CR2 &= ~mask;
+        /* Reset corresponding bit to GPIO_Pin in CR2 register */
+        GPIOx->CR2 &= (uint8_t)(~(mask));
+        
+        /*-----------------------------*/
+        /* Input/Output mode selection */
+        /*-----------------------------*/
+        if ((((uint8_t)(mode)) & (uint8_t)0x80) != (uint8_t)0x00) /* Output mode */
+        {
+            if ((((uint8_t)(mode)) & (uint8_t)0x10) != (uint8_t)0x00) /* High level */
+            {
+                GPIOx->ODR |= (uint8_t)mask;
+            } 
+            else /* Low level */
+            {
+                GPIOx->ODR &= (uint8_t)(~(mask));
+            }
+            /* Set Output mode */
+            GPIOx->DDR |= (uint8_t)mask;
+        } 
+        else /* Input mode */
+        {
+            /* Set Input mode */
+            GPIOx->DDR &= (uint8_t)(~(mask));
+        }
+        
+        /*------------------------------------------------------------------------*/
+        /* Pull-Up/Float (Input) or Push-Pull/Open-Drain (Output) modes selection */
+        /*------------------------------------------------------------------------*/
+        if ((((uint8_t)(mode)) & (uint8_t)0x40) != (uint8_t)0x00) /* Pull-Up or Push-Pull */
+        {
+            GPIOx->CR1 |= (uint8_t)mask;
+        } 
+        else /* Float or Open-Drain */
+        {
+            GPIOx->CR1 &= (uint8_t)(~(mask));
+        }
+        
+        /*-----------------------------------------------------*/
+        /* Interrupt (Input) or Slope (Output) modes selection */
+        /*-----------------------------------------------------*/
+        if ((((uint8_t)(mode)) & (uint8_t)0x20) != (uint8_t)0x00) /* Interrupt or Slow slope */
+        {
+            GPIOx->CR2 |= (uint8_t)mask;
+        } 
+        else /* No external interrupt or No slope control */
+        {
+            GPIOx->CR2 &= (uint8_t)(~(mask));
+        }
 	}
-
+    
 #if 0
-// TODO: Залишити, але не міняти ODR?
+    // TODO: Залишити, але не міняти ODR?
 	void Direct(direction dir)
 	{
 	}
 #endif
-
+    
 	INLINE static uint8_t Latched()
 	{
 		uint8_t ret = GPIOx->ODR & mask;
 		return activestate == 'L' ? !ret : ret;
 	}
-
-	INLINE static uint8_t Signalled()
+    
+	INLINE static bool Signalled()
 	{
-		uint8_t ret = GPIOx->IDR & mask;
+        bool ret = ((uint8_t)GPIOx->IDR & mask)!=0;
 		return activestate == 'L' ? !ret : ret;
 	}
-
+    
 };
 
 #endif // PIN_H_INCLUDED
