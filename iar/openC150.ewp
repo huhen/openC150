@@ -1693,6 +1693,9 @@
         <group>
             <name>inc</name>
             <file>
+                <name>$PROJ_DIR$\..\src\inc\hardware.h</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\src\inc\pin.h</name>
             </file>
             <file>
@@ -1711,6 +1714,9 @@
                 <name>$PROJ_DIR$\..\src\inc\stm8s_conf.h</name>
             </file>
         </group>
+        <file>
+            <name>$PROJ_DIR$\..\src\hardware.cpp</name>
+        </file>
         <file>
             <name>$PROJ_DIR$\..\src\main.cpp</name>
         </file>
