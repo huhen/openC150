@@ -74,13 +74,13 @@ namespace OS
 //
 namespace OS
 {
-
-// The only option supported
+    
+    // The only option supported
 #if scmRTOS_CONTEXT_SWITCH_SCHEME == 0
-
-    #define ENABLE_NESTED_INTERRUPTS()  enable_interrupts()
-    #define DISABLE_NESTED_INTERRUPTS() disable_interrupts()
-
+    
+#define ENABLE_NESTED_INTERRUPTS()  enable_interrupts()
+#define DISABLE_NESTED_INTERRUPTS() disable_interrupts()
+    
 #endif // scmRTOS_CONTEXT_SWITCH_SCHEME
 }
 //-----------------------------------------------------------------------------
